@@ -1,26 +1,26 @@
 FROM lerneca/godot:v1.0.1
 
-ENV GODOT_VERSION "3.4.4"
-ENV CLI_TOOLS_VERSION "7583922_latest"
+ENV GODOT_VERSION "4.3"
+ENV CLI_TOOLS_VERSION "8512546_latest"
 
 RUN mkdir -p /opt/staging/build-templates
 RUN mkdir -p /opt/staging/android-sdk
 
 WORKDIR /opt/staging/build-templates
 
-RUN wget --quiet https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/Godot_v${GODOT_VERSION}-stable_export_templates.tpz
+#RUN wget "https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}-stable_export_templates.tpz"
+RUN wget "https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_export_templates.tpz"
+#RUN wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/Godot_v${GODOT_VERSION}-stable_export_templates.tpz
 RUN unzip Godot_v${GODOT_VERSION}-stable_export_templates.tpz
 RUN pwd
 RUN ls -l
 
 WORKDIR /opt/staging/android-sdk
 
-RUN wget --quiet https://dl.google.com/android/repository/commandlinetools-linux-${CLI_TOOLS_VERSION}.zip
+RUN wget https://dl.google.com/android/repository/commandlinetools-linux-${CLI_TOOLS_VERSION}.zip
 RUN unzip commandlinetools-linux-${CLI_TOOLS_VERSION}.zip -d cmdline-tools
 
 FROM lerneca/godot:v1.0.0
-
-ENV GODOT_VERSION "3.4.4"
 
 RUN apk update && apk add --no-cache openjdk11 bash
 
